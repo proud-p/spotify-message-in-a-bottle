@@ -30,6 +30,8 @@ def search_get_song_name(word):
     track_results = sp.search(q=word, type="track", limit = 50)
     # split message into words
     names = [e['name'] for e in track_results['tracks']['items']]
+    # add space after name to get cleaner names
+    names = [name + " " for name in names]
     print(names)
     starts_with = [name for name in names if name.lower().startswith(word.lower())]
 
