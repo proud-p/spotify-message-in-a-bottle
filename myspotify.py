@@ -28,7 +28,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
 def search_get_song_name(word):
-    track_results = sp.search(q=word, type="track", limit = 20)
+    track_results = sp.search(q=word, type="track", limit = 50)
     track_properties = [{'song': e['name'],'artists': e['artists'],'album_cover': e['album']['images'][0]['url']} for e in track_results['tracks']['items']]
     # print(track_properties)
 
@@ -52,6 +52,7 @@ def search_get_song_name(word):
 
 def get_message_songs(message):
     message_list = message.split(" ")
+    message_list = [word+" " for word in message_list]
 
     # Initialize an empty DataFrame with the same columns as `song_df`
     songs_list_dict = []
@@ -60,8 +61,11 @@ def get_message_songs(message):
         # Retrieve songs for the current word
         search_results = search_get_song_name(word)  # Ensure this function returns a DataFrame
 
+        # filter search results for songs that match beginning word only
+        filtered_search_results = [song for song in search_results if song['song'].lower().startswith(word.lower())]
+
         # Get a random index from `song_df`
-        song = random.choice(search_results)
+        song = random.choice(filtered_search_results)
         # Append the selected row to `hidden_message_songs
         print(song)
         songs_list_dict.append(song)
