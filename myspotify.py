@@ -58,18 +58,18 @@ def get_message_songs(message):
 
     for word in message_list:
         # Retrieve songs for the current word
-        song_list_dict = search_get_song_name(word)  # Ensure this function returns a DataFrame
+        search_results = search_get_song_name(word)  # Ensure this function returns a DataFrame
 
         # Get a random index from `song_df`
-        song = random.choice(song_list_dict)
+        song = random.choice(search_results)
         # Append the selected row to `hidden_message_songs
         print(song)
         songs_list_dict.append(song)
 
     print('HIDDEN MESSAGE')
-    print(song_list_dict)
+    # print(song_list_dict)
 
-    return song_list_dict
+    return songs_list_dict
 
 
 

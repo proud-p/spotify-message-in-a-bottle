@@ -15,11 +15,14 @@
     </form>
 
     {% for song in songs %}
-        <div class="song-card">
-            <img src="{{ song.album_cover }}" alt="Album Cover">
-            <h3>{{ song.song }}</h3>
-            <p>{{ song.artists }}</p>
+    <div class =  "song-card" style="display: flex; align-items: center;">
+        <img src="{{ song.album_cover }}" alt="Album Cover" style="width: 100px; height: auto; margin-right: 10px;">
+        <div>
+            <h3 style="margin: 0;">{{ song.song }}</h3>
+            <p style="margin: 0; font-size: 0.9em;">{{ song.artists }}</p>
         </div>
+    </div>
+    
     {% endfor %}
 
 </body>
