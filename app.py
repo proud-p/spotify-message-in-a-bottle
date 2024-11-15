@@ -6,10 +6,10 @@ from myspotify import get_message_songs
 # __name__ is a python reserved 
 # word
 # telling Flask where our code
-# lives
+# lives - this goes directly into html
 app = Flask(__name__)
 
-default_message = 'SHOW ME THE MONEY'
+default_message = 'CHICKEN NOODLE SOUP'
 
 # set up our landing page
 @app.route('/')

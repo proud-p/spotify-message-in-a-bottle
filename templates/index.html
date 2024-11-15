@@ -14,9 +14,13 @@
         <input type="submit" value="Submit!"><br><br>
     </form>
 
-{% for song in songs %}
-<p>{{song}}</p>
-{% endfor %}
+    {% for song in songs %}
+        <div class="song-card">
+            <img src="{{ song.album_cover }}" alt="Album Cover">
+            <h3>{{ song.song }}</h3>
+            <p>{{ song.artists }}</p>
+        </div>
+    {% endfor %}
 
 </body>
 </html>

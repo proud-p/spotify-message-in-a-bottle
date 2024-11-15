@@ -3,6 +3,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import random
 import configparser
 import pandas as pd
+import numpy as np
 
 # Spotify Auth Function
 class SpotifyAuth:
@@ -27,27 +28,48 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
 def search_get_song_name(word):
-    track_results = sp.search(q=word, type="track", limit = 50)
-    # split message into words
-    names = [e['name'] for e in track_results['tracks']['items']]
-    # add space after name to get cleaner names
-    names = [name + " " for name in names]
-    print(names)
-    starts_with = [name for name in names if name.lower().startswith(word.lower())]
+    track_results = sp.search(q=word, type="track", limit = 20)
+    track_properties = [{'song': e['name'],'artists': e['artists'],'album_cover': e['album']['images'][0]['url']} for e in track_results['tracks']['items']]
+    # print(track_properties)
 
-    return starts_with
+    # clean artist names
+    for track in track_properties:
+        track_artists = track['artists']
+
+        artist_names = []
+        for i in range(len(track_artists)):
+            name = track_artists[i]['name']
+            artist_names.append(name)
+
+        clean_artist_names = " & ".join(artist_names)
+        # replace clean artists names single string back into artist
+        track['artists'] = clean_artist_names
+
+    # print(track_properties)
+        
+    return track_properties
+
 
 def get_message_songs(message):
     message_list = message.split(" ")
 
-    hidden_message_songs = []
+    # Initialize an empty DataFrame with the same columns as `song_df`
+    songs_list_dict = []
+
     for word in message_list:
-        songs_list = search_get_song_name(word)
-        print(songs_list)
-        song = random.choice(songs_list)
-        hidden_message_songs.append(song)
+        # Retrieve songs for the current word
+        song_list_dict = search_get_song_name(word)  # Ensure this function returns a DataFrame
+
+        # Get a random index from `song_df`
+        song = random.choice(song_list_dict)
+        # Append the selected row to `hidden_message_songs
+        print(song)
+        songs_list_dict.append(song)
 
     print('HIDDEN MESSAGE')
-    print(hidden_message_songs)
+    print(song_list_dict)
 
-    return hidden_message_songs
+    return song_list_dict
+
+
+
