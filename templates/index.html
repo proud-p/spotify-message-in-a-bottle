@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title>Message in a Bottle</title>
+    <link rel="icon" type="image/x-icon" href="/static/logo.png">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
@@ -11,7 +12,22 @@
     <form method="POST">
         <label>Message:</label>
         <input name=message type="text" value="{{hidden_message}}"><br><br>
+        
+        <div class="slider-container">
+            
+        <label for="sad_happy_slider" >Mood</label>
+        <input type="range" id="sad_happy_slider" name="sad_happy_slider" min="0" max="100" value="50" class="slider"><br><br>
+        
+        <label for="energy_slider">Energy</label>
+        <input type="range" id="energy_slider" name="energy_slider" min="0" max="100" value="50" class="slider"><br><br>
+
+        <label for="dancability_slider" >Energy</label>
+        <input type="range" id="dancability_slider" name="dancability_slider" min="0" max="100" value="50" class="slider"><br><br>       
+
+        </div>
+
         <input type="submit" value="Submit!"><br><br>
+        
     </form>
 
     {% for song in songs %}
@@ -27,3 +43,4 @@
 
 </body>
 </html>
+ 
