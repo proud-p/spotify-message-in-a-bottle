@@ -6,28 +6,89 @@
     <title>Message in a Bottle</title>
     <link rel="icon" type="image/x-icon" href="/static/logo.png">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+
 </head>
 <body>
-    <h1>Message In A Bottle!</h1>
+    <div class="title-banner">
+        <h1>Message In A Bottle!</h1>
+    </div>
+    
+    <h3>Hide a message written in songs and customize your secret playlist by mood, energy, and danceability!</h3>
+        <p>
+            Use the sliders to adjust the vibe of your playlist.
+            <br><br>
+            When you're happy with your customizations, 
+            click <strong>Submit</strong> to preview your playlist. 
+            <br><br>
+            Once you're ready, click 
+            <strong>Generate Playlist</strong> to create your playlist on Spotify.
+        </p>
+
+
     <form method="POST">
         <label>Message:</label>
         <input name="message" type="text" value="{{ hidden_message }}"><br><br>
         
         <div class="slider-container">
-            <label for="sad_happy_slider">Mood</label>
-            <input type="range" id="sad_happy_slider" name="sad_happy_slider" value="{{ happy_sad_slider }}" min="0" max="100" class="slider"><br><br>
-            
-            <label for="energy_slider">Energy</label>
-            <input type="range" id="energy_slider" name="energy_slider" value="{{ energy_slider }}" min="0" max="100" class="slider"><br><br>
+            <label for="sad_happy_slider"><h3>Mood:</h3></label>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span>Sad</span>
+        <input 
+            type="range" 
+            id="sad_happy_slider" 
+            name="sad_happy_slider" 
+            value="50" 
+            min="0" 
+            max="100" 
+            class="slider">
+        <span>Happy</span>
+    </div>
+    <br><br>
 
-            <label for="danceability_slider">Danceability</label>
-            <input type="range" id="danceability_slider" name="danceability_slider" value="{{ danceability_slider }}" min="0" max="100" class="slider"><br><br>
+    <!-- Energy Slider -->
+    <label for="energy_slider"><strong>Energy:</strong></label>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span>Low</span>
+        <input 
+            type="range" 
+            id="energy_slider" 
+            name="energy_slider" 
+            value="50" 
+            min="0" 
+            max="100" 
+            class="slider">
+        <span>High</span>
+    </div>
+    <br><br>
+
+    <!-- Danceability Slider -->
+    <label for="danceability_slider"><strong>Danceability:</strong></label>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span>Still</span>
+        <input 
+            type="range" 
+            id="danceability_slider" 
+            name="danceability_slider" 
+            value="50" 
+            min="0" 
+            max="100" 
+            class="slider">
+        <span>Dance!</span>
+    </div>
+    <br><br>
         </div>
 
         <!-- Buttons with different names -->
-        <button type="submit" name="action" value="submit">Submit</button>
+        <button type="submit" name="action" value="submit">Submit</button><br>
         <button type="submit" name="action" value="create_playlist">Create Playlist</button>
     </form>
+
+    <br><br>
+    <br><br>
+
+    <div class="song-card">
+    <h2>YOUR MESSAGE IN A BOTTLE</h2>
 
     {% for song in songs %}
     <div class="song-card" style="display: flex; align-items: center;">
@@ -42,5 +103,7 @@
     {% if playlist_url %}
     <p>Playlist created successfully! <a href="{{ playlist_url }}" target="_blank">View Playlist on Spotify</a></p>
     {% endif %}
+
+</div>
 </body>
 </html>
