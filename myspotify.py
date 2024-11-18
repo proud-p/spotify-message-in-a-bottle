@@ -4,6 +4,9 @@ import random
 import configparser
 import pandas as pd
 import numpy as np
+import spotipy.util as util
+import webbrowser
+import base64
 
 # Spotify Auth Function
 class SpotifyAuth:
@@ -20,12 +23,19 @@ class SpotifyAuth:
 
 # Get Spotify Authentication
 keys_path = "auth/spotify_keys.ini"
-spotify_auth = SpotifyAuth(keys_path)
+SpotifyAuth = SpotifyAuth(keys_path)
+
+scope = 'user-read-private user-read-playback-state user-modify-playback-state playlist-modify-public user-library-read ugc-image-upload'
+
+token = util.prompt_for_user_token(SpotifyAuth.username, scope, client_id=SpotifyAuth.client_id,
+                           client_secret=SpotifyAuth.client_secret,
+                           redirect_uri=SpotifyAuth.redirectURI)
 
 # Authenticate Spotify and get credentials manager as sp
-client_credentials_manager = SpotifyClientCredentials(spotify_auth.client_id, spotify_auth.client_secret)
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+# client_credentials_manager = SpotifyClientCredentials(SpotifyAuth.client_id, SpotifyAuth.client_secret)
+# sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
+sp = spotipy.Spotify(auth=token)
 
 def search_get_song_name(word):
     track_results = sp.search(q=word, type="track", limit = 50)
@@ -105,3 +115,17 @@ def get_message_songs(message, valence_input, energy_input, dance_input):
 
 
 
+def create_playlist(songs_list_dict):
+    songs_uris = [song['uri'].split("spotify:track:")[1] for song in songs_list_dict]
+    my_playlist = sp.user_playlist_create(user=SpotifyAuth.username, name="Message in a Bottle", public=True,
+                                      description="Your secret message awaits! See if you can figure it out!")
+    sp.user_playlist_add_tracks(SpotifyAuth.username, my_playlist['id'], songs_uris)
+
+    with open("static/cover.jpg", "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+        sp.playlist_upload_cover_image(my_playlist['id'], encoded_image)
+
+    # webbrowser.open(my_playlist['external_urls']['spotify'])
+
+    return my_playlist['id']
+ 

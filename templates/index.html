@@ -11,36 +11,36 @@
     <h1>Message In A Bottle!</h1>
     <form method="POST">
         <label>Message:</label>
-        <input name=message type="text" value="{{hidden_message}}"><br><br>
+        <input name="message" type="text" value="{{ hidden_message }}"><br><br>
         
         <div class="slider-container">
+            <label for="sad_happy_slider">Mood</label>
+            <input type="range" id="sad_happy_slider" name="sad_happy_slider" value="{{ happy_sad_slider }}" min="0" max="100" class="slider"><br><br>
             
-        <label for="sad_happy_slider" >Mood</label>
-        <input type="range" id="sad_happy_slider" name="sad_happy_slider" value="{{happy_sad_slider}}" min="0" max="100" value="50" class="slider"><br><br>
-        
-        <label for="energy_slider">Energy</label>
-        <input type="range" id="energy_slider" name="energy_slider" value="{{energy_slider}}" min="0" max="100" value="50" class="slider"><br><br>
+            <label for="energy_slider">Energy</label>
+            <input type="range" id="energy_slider" name="energy_slider" value="{{ energy_slider }}" min="0" max="100" class="slider"><br><br>
 
-        <label for="danceability_slider" >Energy</label>
-        <input type="range" id="danceability_slider" name="danceability_slider" value="{{danceability_slider}}" min="0" max="100" value="50" class="slider"><br><br>       
-
+            <label for="danceability_slider">Danceability</label>
+            <input type="range" id="danceability_slider" name="danceability_slider" value="{{ danceability_slider }}" min="0" max="100" class="slider"><br><br>
         </div>
 
-        <input type="submit" value="Submit!"><br><br>
-        
+        <!-- Buttons with different names -->
+        <button type="submit" name="action" value="submit">Submit</button>
+        <button type="submit" name="action" value="create_playlist">Create Playlist</button>
     </form>
 
     {% for song in songs %}
-    <div class =  "song-card" style="display: flex; align-items: center;">
+    <div class="song-card" style="display: flex; align-items: center;">
         <img src="{{ song.album_cover }}" alt="Album Cover" style="width: 100px; height: auto; margin-right: 10px;">
         <div>
             <h3 style="margin: 0;">{{ song.song }}</h3>
             <p style="margin: 0; font-size: 0.9em;">{{ song.artists }}</p>
         </div>
     </div>
-    
     {% endfor %}
 
+    {% if playlist_url %}
+    <p>Playlist created successfully! <a href="{{ playlist_url }}" target="_blank">View Playlist on Spotify</a></p>
+    {% endif %}
 </body>
 </html>
- 
