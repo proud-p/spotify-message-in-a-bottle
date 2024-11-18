@@ -29,7 +29,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 def search_get_song_name(word):
     track_results = sp.search(q=word, type="track", limit = 50)
-    track_properties = [{'song': e['name'],'artists': e['artists'],'album_cover': e['album']['images'][0]['url']} for e in track_results['tracks']['items']]
+    track_properties = [{'song': e['name'],'artists': e['artists'],'album_cover': e['album']['images'][0]['url'],'id':e['id'],'word':word} for e in track_results['tracks']['items']]
     # print(track_properties)
 
     # clean artist names
@@ -45,12 +45,41 @@ def search_get_song_name(word):
         # replace clean artists names single string back into artist
         track['artists'] = clean_artist_names
 
+    # filter search results for songs that match beginning word only
+    filtered_track_properties = [song for song in track_properties if song['song'].lower().startswith(word.lower())]
+
     # print(track_properties)
         
-    return track_properties
+    return filtered_track_properties
+
+def get_features(filtered_track_properties):
+    df = pd.DataFrame(filtered_track_properties)
+    ids = list(df['id'])
+    features  = sp.audio_features(ids)
+    features = pd.DataFrame(features)
+    df_master = df.merge(features, on="id")
+    master_dict = df_master.to_dict(orient="records")
+
+    return master_dict
 
 
-def get_message_songs(message):
+def return_closest_song(master_dict, valence_input, energy_input, dance_input):
+    # return song closest to slider values
+
+    # scale 0-100 to 0 to 1
+
+    closest_dict = min(
+        master_dict,
+        key=lambda d: (
+            abs(d["valence"] - (float(valence_input)/100)) +
+            abs(d["energy"] - (float(energy_input)/100)) +
+            abs(d["danceability"] - (float(dance_input)/100))
+        )
+    )
+    return closest_dict
+
+
+def get_message_songs(message, valence_input, energy_input, dance_input):
     message_list = message.split(" ")
     message_list = [word+" " for word in message_list]
 
@@ -58,14 +87,13 @@ def get_message_songs(message):
     songs_list_dict = []
 
     for word in message_list:
-        # Retrieve songs for the current word
-        search_results = search_get_song_name(word)  # Ensure this function returns a DataFrame
+        # Retrieve songs for the current word and filter for first word matching the song
+        search_results = search_get_song_name(word)  
+        # Grab music features
+        master_dict = get_features(search_results)
 
-        # filter search results for songs that match beginning word only
-        filtered_search_results = [song for song in search_results if song['song'].lower().startswith(word.lower())]
-
-        # Get a random index from `song_df`
-        song = random.choice(filtered_search_results)
+        # Get closest song to slider values
+        song = return_closest_song(master_dict, valence_input, energy_input, dance_input)
         # Append the selected row to `hidden_message_songs
         print(song)
         songs_list_dict.append(song)
