@@ -12,10 +12,10 @@
 <body>
     <div class="title-banner">
         <h1>Message In A Bottle!</h1>
-    </div>
-    
-    <h3>Hide a message written in songs and customize your secret playlist by mood, energy, and danceability!</h3>
+
+        <h3>Hide a message written in songs and customize your secret playlist by mood, energy, and danceability!</h3>
         <p>
+            <br><br>
             Use the sliders to adjust the vibe of your playlist.
             <br><br>
             When you're happy with your customizations, 
@@ -24,64 +24,65 @@
             Once you're ready, click 
             <strong>Generate Playlist</strong> to create your playlist on Spotify.
         </p>
-
+    </div>
+    
 
     <form method="POST">
-        <label>Message:</label>
-        <input name="message" type="text" value="{{ hidden_message }}"><br><br>
+        <label class="message-label">Message:</label>
+        <input name="message" type="text" value="{{ hidden_message }}">
         
         <div class="slider-container">
-            <label for="sad_happy_slider"><h3>Mood:</h3></label>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span>Sad</span>
-        <input 
-            type="range" 
-            id="sad_happy_slider" 
-            name="sad_happy_slider" 
-            value="50" 
-            min="0" 
-            max="100" 
-            class="slider">
-        <span>Happy</span>
-    </div>
-    <br><br>
-
-    <!-- Energy Slider -->
-    <label for="energy_slider"><strong>Energy:</strong></label>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span>Low</span>
-        <input 
-            type="range" 
-            id="energy_slider" 
-            name="energy_slider" 
-            value="50" 
-            min="0" 
-            max="100" 
-            class="slider">
-        <span>High</span>
-    </div>
-    <br><br>
-
-    <!-- Danceability Slider -->
-    <label for="danceability_slider"><strong>Danceability:</strong></label>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span>Still</span>
-        <input 
-            type="range" 
-            id="danceability_slider" 
-            name="danceability_slider" 
-            value="50" 
-            min="0" 
-            max="100" 
-            class="slider">
-        <span>Dance!</span>
-    </div>
-    <br><br>
+            <!-- Mood Slider -->
+            <div class="slider-group">
+                <label for="sad_happy_slider" class="slider-label"><h3>Mood:</h3></label>
+                <div class="slider-wrapper">
+                    <span>Sad</span>
+                    <input 
+                        type="range" 
+                        id="sad_happy_slider" 
+                        name="sad_happy_slider" 
+                        value="50" 
+                        min="0" 
+                        max="100" 
+                        class="slider">
+                    <span>Happy</span>
+                </div>
+            </div>
+    
+            <!-- Energy Slider -->
+            <div class="slider-group">
+                <label for="energy_slider" class="slider-label"><h3>Energy:</h3></label>
+                <div class="slider-wrapper">
+                    <span>Low</span>
+                    <input 
+                        type="range" 
+                        id="energy_slider" 
+                        name="energy_slider" 
+                        value="50" 
+                        min="0" 
+                        max="100" 
+                        class="slider">
+                    <span>High</span>
+                </div>
+            </div>
+    
+            <!-- Danceability Slider -->
+            <div class="slider-group">
+                <label for="danceability_slider" class="slider-label"><h3>Danceability:</h3></label>
+                <div class="slider-wrapper">
+                    <span>Still</span>
+                    <input 
+                        type="range" 
+                        id="danceability_slider" 
+                        name="danceability_slider" 
+                        value="50" 
+                        min="0" 
+                        max="100" 
+                        class="slider">
+                    <span>Dance!</span>
+                </div>
+            </div>
         </div>
-
-        <!-- Buttons with different names -->
-        <button type="submit" name="action" value="submit">Submit</button><br>
-        <button type="submit" name="action" value="create_playlist">Create Playlist</button>
     </form>
 
     <br><br>

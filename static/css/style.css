@@ -1,5 +1,5 @@
-/* Fonts */
 
+/* Fonts */
 @font-face {
     font-family: "Mogra";
     src: url('../fonts/Mogra/Mogra-Regular.ttf') format('truetype')
@@ -10,89 +10,141 @@
     src: url('../fonts/Lato/Lato-Black.ttf') format('truetype')
 }
 
-
-/* Body */
-
+/* Body and General Styles */
 body {
     background-color: #000814;
     color: #FFC300;
     font-family: "Lato";
-    
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Title Section */
 .title-banner {
-    text-align: center;
     width: 100%;
-    justify-content: center;
-    align-items: center;  
+    max-width: 1200px;
     display: flex;
-    height: auto;
-    margin: 2rem;
-
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
 }
 
 h1 {
     font-family: "Mogra";
     font-size: 5rem;
-    text-align: center;
-    margin: 1rem;
-   
+    margin: 2rem 0;
+    text-shadow: 3px 3px 0px #003566;
 }
 
+h3 { 
+    font-family: "Lato";
+    font-size: 1.5rem;
+    max-width: 800px;
+    line-height: 1.4;
+    margin: 1.5rem 0;
+}
 
+p { 
+    font-family: "Lato";
+    font-size: 1.1rem;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
 
+/* Form Styling */
+form {
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 53, 102, 0.2);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
 
+.message-label {
+    font-family: "Mogra";
+    font-size: 2.5rem;
+    color: #FFC300;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 0px #003566;
+}
 
-
-/* Input styling */
 input[type="text"] {
     width: 90%;
-    padding: 2rem;
+    padding: 1rem;
     border: 2px solid #003566;
     border-radius: 8px;
     background-color: #001733;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
 }
 
 input[type="text"]:focus {
     outline: none;
     border-color: #FFC300;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%; /* Reduce form width */
-    max-width: 800px; /* Maximum width */
-    margin: 0 auto;
-    padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
 }
 
 /* Slider Styling */
-/* https://www.w3schools.com/howto/howto_js_rangeslider.asp */
 .slider-container {
     width: 100%;
-    max-width: 600px; /* Maximum width for slider container */
-    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.slider-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.slider-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.slider-label h3 {
+    font-family: "Mogra";
+    font-size: 2rem;
+    color: #FFC300;
+    margin: 0.5rem 0;
+    text-shadow: 2px 2px 0px #003566;
 }
 
 .slider {
     -webkit-appearance: none;
     width: 100%;
     height: 15px;
-    border-radius: 5px;
+    border-radius: 5px;  
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    margin: 10px 0;
+  }
+
+.slider:hover {
+    opacity: 1;
 }
 
-  
-  .slider::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -112,29 +164,58 @@ form {
     cursor: pointer;
   }
 
-/* Button styling */
+/* Button Styling */
+.button-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
 button {
     background-color: #003566;
     color: #FFC300;
     border: 2px solid #FFC300;
-    padding: 12px 24px;
+    padding: 1rem 2rem;
     border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 1rem;
     transition: all 0.3s ease;
-    margin: 0 10px;
-    align-items: center;
 }
 
 button:hover {
     background-color: #FFC300;
     color: #003566;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 195, 0, 0.3);
 }
 
-
-/* songs */
-
+/* Song Card Styling */
 .song-card {
-    margin: 10%;
+    background-color: rgba(0, 53, 102, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    width: 90%;
+    max-width: 800px;
+    transition: transform 0.3s ease;
 }
+
+.song-card:hover {
+    transform: translateX(10px);
+}
+
+.song-card h2 {
+    font-family: "Mogra";
+    color: #FFC300;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 0px #003566;
+}
+
+.song-card img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+

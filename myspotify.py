@@ -105,10 +105,10 @@ def get_message_songs(message, valence_input, energy_input, dance_input):
         # Get closest song to slider values
         song = return_closest_song(master_dict, valence_input, energy_input, dance_input)
         # Append the selected row to `hidden_message_songs
-        print(song)
+        # print(song)
         songs_list_dict.append(song)
 
-    print('HIDDEN MESSAGE')
+    # print('HIDDEN MESSAGE')
     # print(song_list_dict)
 
     return songs_list_dict
