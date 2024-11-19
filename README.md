@@ -3,7 +3,7 @@
 ## **Overview**
 "Message In A Bottle" is a Flask-based web application that allows users to create personalised playlists on Spotify. Each song represents a word from a hidden message, with each word in the message being the first word of each song. Users can customise their playlist's mood, energy, and danceability using interactive sliders.
 
-[![Message In A Bottle Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/qDTNG1c_BnI)
+[![Message In A Bottle Demo](https://img.youtube.com/vi/qDTNG1c_BnI/0.jpg)](https://youtu.be/qDTNG1c_BnI)
 
 ---
 
